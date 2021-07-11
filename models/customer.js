@@ -79,8 +79,9 @@ class Customer {
         }
     }
 
-    async getFullName() {
+    get getFullName() {
         // get the customer full name in a neat format;
+        // console.log(`${this.firstName} ${this.lastName}`);
         return `${this.firstName} ${this.lastName}`;
     }
 }

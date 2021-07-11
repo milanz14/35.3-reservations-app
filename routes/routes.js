@@ -32,10 +32,7 @@ router.get("/add/", async function (req, res, next) {
 
 router.post("/add/", async function (req, res, next) {
     try {
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const phone = req.body.phone;
-        const notes = req.body.notes;
+        const { firstName, lastName, phone, notes } = req.body;
 
         const customer = new Customer({ firstName, lastName, phone, notes });
         await customer.save();
@@ -53,7 +50,7 @@ router.get("/:id/", async function (req, res, next) {
         const customer = await Customer.get(req.params.id);
 
         const reservations = await customer.getReservations();
-
+        await customer.getFullName();
         return res.render("customer_detail.html", { customer, reservations });
     } catch (err) {
         return next(err);
